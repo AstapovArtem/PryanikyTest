@@ -101,7 +101,7 @@ class ViewsFactory {
             label.isUserInteractionEnabled = true
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(showAlert(sender:)))
-            tap.text = variant.text
+            tap.text = String(variant.id)
             label.addGestureRecognizer(tap)
             
             stackView.addArrangedSubview(label)

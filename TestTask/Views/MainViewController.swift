@@ -27,6 +27,8 @@ class MainViewController: UIViewController {
         return button
     }()
     
+    // MARK: View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
