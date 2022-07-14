@@ -15,6 +15,8 @@
 		E3856C5B286355270040C8FE /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3856C5A286355270040C8FE /* SearchResponse.swift */; };
 		E3856C5D28635BE00040C8FE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3856C5C28635BE00040C8FE /* NetworkService.swift */; };
 		E3856C5F28635C2E0040C8FE /* UrlRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3856C5E28635C2E0040C8FE /* UrlRequests.swift */; };
+		E39EC0B92880162E00E619C9 /* ViewHeightCalculated.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EC0B82880162E00E619C9 /* ViewHeightCalculated.swift */; };
+		E39EC0BB2880170300E619C9 /* DataViewModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EC0BA2880170300E619C9 /* DataViewModelConstants.swift */; };
 		E3AB5AB12864CA950030F54A /* ViewsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AB5AB02864CA950030F54A /* ViewsFactory.swift */; };
 		E3D494742863C3E60032F061 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D494732863C3E60032F061 /* MainViewController.swift */; };
 		E3D494782863C6730032F061 /* DataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D494772863C6730032F061 /* DataViewModel.swift */; };
@@ -36,6 +38,8 @@
 		E3856C5A286355270040C8FE /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		E3856C5C28635BE00040C8FE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		E3856C5E28635C2E0040C8FE /* UrlRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlRequests.swift; sourceTree = "<group>"; };
+		E39EC0B82880162E00E619C9 /* ViewHeightCalculated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightCalculated.swift; sourceTree = "<group>"; };
+		E39EC0BA2880170300E619C9 /* DataViewModelConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewModelConstants.swift; sourceTree = "<group>"; };
 		E3AB5AB02864CA950030F54A /* ViewsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsFactory.swift; sourceTree = "<group>"; };
 		E3D494732863C3E60032F061 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E3D494772863C6730032F061 /* DataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewModel.swift; sourceTree = "<group>"; };
@@ -132,14 +136,24 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		E39EC0BC2880170B00E619C9 /* ViewHeight */ = {
+			isa = PBXGroup;
+			children = (
+				E39EC0B82880162E00E619C9 /* ViewHeightCalculated.swift */,
+				E39EC0BA2880170300E619C9 /* DataViewModelConstants.swift */,
+			);
+			path = ViewHeight;
+			sourceTree = "<group>";
+		};
 		E3D494752863C62E0032F061 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				E3856C5C28635BE00040C8FE /* NetworkService.swift */,
 				E3AB5AB02864CA950030F54A /* ViewsFactory.swift */,
-				E3D494762863C6450032F061 /* Models */,
 				E3D494792863C7BB0032F061 /* NavigationController.swift */,
 				E3D4947D2863D6E90032F061 /* Box.swift */,
+				E39EC0BC2880170B00E619C9 /* ViewHeight */,
+				E3D494762863C6450032F061 /* Models */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -273,10 +287,12 @@
 				E3856C5B286355270040C8FE /* SearchResponse.swift in Sources */,
 				E37580FC286264A0004F614D /* AppDelegate.swift in Sources */,
 				E3D4947A2863C7BB0032F061 /* NavigationController.swift in Sources */,
+				E39EC0BB2880170300E619C9 /* DataViewModelConstants.swift in Sources */,
 				E3D494742863C3E60032F061 /* MainViewController.swift in Sources */,
 				E37580FE286264A0004F614D /* SceneDelegate.swift in Sources */,
 				E3856C5F28635C2E0040C8FE /* UrlRequests.swift in Sources */,
 				E3D4947E2863D6E90032F061 /* Box.swift in Sources */,
+				E39EC0B92880162E00E619C9 /* ViewHeightCalculated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

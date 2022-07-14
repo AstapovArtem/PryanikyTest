@@ -21,19 +21,28 @@ class DataViewController: UIViewController {
     
     // MARK: UI Elements
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .white
+        scrollView.frame = view.bounds
+        return scrollView
+    }()
+    
     private var label: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "test"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private var stackView: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        stackView.spacing = DataViewModelConstants.contentStackViewSpacing
+        stackView.widthAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
         return stackView
     }()
     
@@ -46,26 +55,37 @@ class DataViewController: UIViewController {
         setupElements()
         bindViews()
         bindData()
+        
+        title = "Pryaniki"
     }
     
     // MARK: Setup UI elements
     
     private func setupElements() {
-        view.addSubview(stackView)
-        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        view.addSubview(scrollView)
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        
+        scrollView.addSubview(stackView)
+        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: DataViewModelConstants.contentTopAnchor).isActive = true
     }
     
     private func loadViews() {
         guard let views = views, let data = data else { return }
-
+        
         for view in views {
             guard let newView = viewsFactory?.createLabel(with: view, models: data) else { return }
-            newView.widthAnchor.constraint(equalToConstant: 130).isActive = true
-            newView.heightAnchor.constraint(equalToConstant: 130).isActive = true
-            newView.backgroundColor = .systemGray5
+            newView.widthAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
+            newView.heightAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
             stackView.addArrangedSubview(newView)
-            
+        }
+        
+        let calculatedScrollViewSize = CGSize(width: view.frame.width, height: ViewHeightCalculated.viewHeight(elements: views.count))
+        if scrollView.bounds.height < calculatedScrollViewSize.height {
+            scrollView.contentSize = calculatedScrollViewSize
         }
     }
     

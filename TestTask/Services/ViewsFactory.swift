@@ -14,7 +14,7 @@ class ViewsFactory {
     
     var dataVcDelegate: DataViewControllerDelegate
     
-    private var viewSize: CGFloat = 100
+    private var variants: [Variant] = []
     
     func createLabel(with id: String, models: [DataElement]) -> UIView? {
         switch id.description {
@@ -25,7 +25,7 @@ class ViewsFactory {
         case "selector":
             let model = models.filter({ $0.name == "selector" })
             guard let element = model.first?.data else { return nil }
-            return generateSelectorStackView(element: element)
+            return generateSelector(element: element)
         case "picture":
             guard let model = models.filter({ $0.name == "picture" }).first else { return nil }
             return generatePictureView(element: model.data)
@@ -79,41 +79,74 @@ class ViewsFactory {
         return imageView
     }
     
-    private func generateSelectorStackView(element: DataElementInfo) -> UIView? {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        stackView.distribution = .equalCentering
-        
-        view.addSubview(stackView)
-        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        guard let variants: [Variant] = element.variants else { return UIView() }
-        
-        for variant in variants {
-            let label = UILabel()
-            label.text = variant.text
-            label.isUserInteractionEnabled = true
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(showAlert(sender:)))
-            tap.text = String(variant.id)
-            label.addGestureRecognizer(tap)
-            
-            stackView.addArrangedSubview(label)
+    private func generateSelector(element: DataElementInfo) -> UISegmentedControl {
+        guard let variants: [Variant] = element.variants else { return UISegmentedControl() }
+        self.variants = variants
+        var arr: [String] = []
+        for item in variants {
+            let text = String(item.id)
+            arr.append(text)
         }
+        let segmentedControl = UISegmentedControl(items: arr)
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        let selectedId = variants.firstIndex(where: { $0.id == element.selectedId })
+        segmentedControl.selectedSegmentIndex = selectedId ?? 2
+        
+        segmentedControl.addTarget(self, action: #selector(segmentedControlChanged), for: .valueChanged)
+        
+        
+        return segmentedControl
     }
+    
+//    private func generateSelectorStackView(element: DataElementInfo) -> UIView? {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let stackView = UIStackView()
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.axis = .vertical
+//        stackView.spacing = 10
+//        stackView.distribution = .equalCentering
+//
+//        view.addSubview(stackView)
+//        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//
+//        guard let variants: [Variant] = element.variants else { return UIView() }
+//
+//        for variant in variants {
+//            let label = UILabel()
+//            label.text = variant.text
+//            label.isUserInteractionEnabled = true
+//
+//            let tap = UITapGestureRecognizer(target: self, action: #selector(showAlert(sender:)))
+//            tap.text = String(variant.id)
+//            label.addGestureRecognizer(tap)
+//
+//            stackView.addArrangedSubview(label)
+//        }
+//
+//        return view
+//    }
     
     // MARK: Actions
     
-    @objc func showAlert(sender: UITapGestureRecognizer) {
+    @objc private func showAlert(sender: UITapGestureRecognizer) {
         dataVcDelegate.showAlert(text: sender.text)
+    }
+    
+    @objc private func segmentedControlChanged(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            dataVcDelegate.showAlert(text: variants[0].text)
+        case 1:
+            dataVcDelegate.showAlert(text: variants[1].text)
+        case 2:
+            dataVcDelegate.showAlert(text: variants[2].text)
+        default:
+            break
+        }
     }
     
 }
