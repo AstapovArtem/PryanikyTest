@@ -10,11 +10,18 @@ import UIKit
 
 class ViewHeightCalculated {
     
-    static func viewHeight(elements: Int) -> CGFloat {
-        let elements = CGFloat(elements)
+    static func viewHeight(views: [String]) -> CGFloat {
+        var totalHeight: CGFloat = 0
         
-        let elementsHeight = DataViewModelConstants.contentViewHeightWidth * elements
+        for view in views {
+            switch view {
+            case "hz": totalHeight += DataViewModelConstants.hzViewHeight + DataViewModelConstants.contentStackViewSpacing
+            case "picture": totalHeight += DataViewModelConstants.contentViewHeightWidth + DataViewModelConstants.contentStackViewSpacing
+            case "selector": totalHeight += DataViewModelConstants.selectorHeight + DataViewModelConstants.contentStackViewSpacing
+            default: totalHeight += 0
+            }
+        }
         
-        return DataViewModelConstants.contentTopAnchor * 2 + elementsHeight + (DataViewModelConstants.contentStackViewSpacing * (elements - 1))
+        return totalHeight
     }
 }

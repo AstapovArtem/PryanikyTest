@@ -78,13 +78,11 @@ class DataViewController: UIViewController {
         
         for view in views {
             guard let newView = viewsFactory?.createLabel(with: view, models: data) else { return }
-            newView.widthAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
-            newView.heightAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
             stackView.addArrangedSubview(newView)
         }
         
-        let calculatedScrollViewSize = CGSize(width: view.frame.width, height: ViewHeightCalculated.viewHeight(elements: views.count))
-        if scrollView.bounds.height < calculatedScrollViewSize.height {
+        let calculatedScrollViewSize = CGSize(width: view.frame.width, height: ViewHeightCalculated.viewHeight(views: views))
+        if scrollView.frame.height < calculatedScrollViewSize.height {
             scrollView.contentSize = calculatedScrollViewSize
         }
     }

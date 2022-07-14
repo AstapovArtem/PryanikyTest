@@ -44,6 +44,8 @@ class ViewsFactory {
     
     private func generateHzView(element: DataElementInfo) -> UIView? {
         let view = UIView()
+        view.widthAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
+        view.heightAnchor.constraint(equalToConstant: DataViewModelConstants.hzViewHeight).isActive = true
         
         guard let text = element.text else { return nil }
         let textLabel = UILabel()
@@ -66,6 +68,8 @@ class ViewsFactory {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
+        imageView.widthAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: DataViewModelConstants.contentViewHeightWidth).isActive = true
         
         guard let urlString = element.url else { return nil }
         let url = URL(string: urlString)
@@ -89,6 +93,7 @@ class ViewsFactory {
         }
         let segmentedControl = UISegmentedControl(items: arr)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.heightAnchor.constraint(equalToConstant: DataViewModelConstants.selectorHeight).isActive = true
         
         let selectedId = variants.firstIndex(where: { $0.id == element.selectedId })
         segmentedControl.selectedSegmentIndex = selectedId ?? 2

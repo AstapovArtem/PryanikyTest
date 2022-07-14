@@ -8,9 +8,14 @@
 import UIKit
 
 struct DataViewModelConstants {
-    static let contentTopAnchor: CGFloat = 30
     
-    static let contentViewHeightWidth: CGFloat = 200
+    static let contentTopAnchor: CGFloat = 50
     
-    static let contentStackViewSpacing: CGFloat = 15
+    static let contentViewHeightWidth: CGFloat = 250
+    
+    static let contentStackViewSpacing: CGFloat = 30
+    
+    static let hzViewHeight: CGFloat = 60
+    
+    static let selectorHeight: CGFloat = 35
 }
