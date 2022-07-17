@@ -22,7 +22,6 @@
 		E3D494782863C6730032F061 /* DataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D494772863C6730032F061 /* DataViewModel.swift */; };
 		E3D4947A2863C7BB0032F061 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D494792863C7BB0032F061 /* NavigationController.swift */; };
 		E3D4947C2863D49B0032F061 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D4947B2863D49B0032F061 /* DataViewController.swift */; };
-		E3D4947E2863D6E90032F061 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D4947D2863D6E90032F061 /* Box.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +44,6 @@
 		E3D494772863C6730032F061 /* DataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewModel.swift; sourceTree = "<group>"; };
 		E3D494792863C7BB0032F061 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		E3D4947B2863D49B0032F061 /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
-		E3D4947D2863D6E90032F061 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +149,6 @@
 				E3856C5C28635BE00040C8FE /* NetworkService.swift */,
 				E3AB5AB02864CA950030F54A /* ViewsFactory.swift */,
 				E3D494792863C7BB0032F061 /* NavigationController.swift */,
-				E3D4947D2863D6E90032F061 /* Box.swift */,
 				E39EC0BC2880170B00E619C9 /* ViewHeight */,
 				E3D494762863C6450032F061 /* Models */,
 			);
@@ -291,7 +288,6 @@
 				E3D494742863C3E60032F061 /* MainViewController.swift in Sources */,
 				E37580FE286264A0004F614D /* SceneDelegate.swift in Sources */,
 				E3856C5F28635C2E0040C8FE /* UrlRequests.swift in Sources */,
-				E3D4947E2863D6E90032F061 /* Box.swift in Sources */,
 				E39EC0B92880162E00E619C9 /* ViewHeightCalculated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

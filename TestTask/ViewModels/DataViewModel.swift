@@ -7,18 +7,21 @@
 
 import Foundation
 import Kingfisher
+import RxSwift
+
 
 class DataViewModel {
     
     private var networkService = NetworkService()
     
-    var data: Box<[DataElement]> = Box([])
-    var views: Box<[String]> = Box([])
+    var data: PublishSubject<[DataElement]> = PublishSubject()
+    var views: PublishSubject<[String]> = PublishSubject()
     
-    func receiveSearchResponse() {
-        let _ = networkService.fetchData(from: UrlRequests.pryanikiJSONRequest) { [weak self] response in
-            self?.views.value = response?.view ?? []
-            self?.data.value = response?.data ?? []
+    func receiveData() {
+        networkService.fetchData(from: UrlRequests.pryanikiJSONRequest) { [weak self] response in
+            self?.data.onNext(response?.data ?? [])
+            self?.views.onNext(response?.view ?? [])
         }
     }
+    
 }

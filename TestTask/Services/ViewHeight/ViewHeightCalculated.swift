@@ -11,7 +11,7 @@ import UIKit
 class ViewHeightCalculated {
     
     static func viewHeight(views: [String]) -> CGFloat {
-        var totalHeight: CGFloat = 0
+        var totalHeight: CGFloat = DataViewModelConstants.contentTopAnchor
         
         for view in views {
             switch view {

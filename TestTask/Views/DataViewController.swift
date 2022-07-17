@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol DataViewControllerDelegate {
     func showAlert(text: String)
@@ -16,7 +18,6 @@ class DataViewController: UIViewController {
     
     private var viewsFactory: ViewsFactory?
     private var viewModel = DataViewModel()
-    private var views: [String]?
     private var data: [DataElement]?
     
     // MARK: UI Elements
@@ -51,12 +52,27 @@ class DataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewsFactory = ViewsFactory(dataVcDelegate: self)
-        viewModel.receiveSearchResponse()
+        viewModel.receiveData()
         setupElements()
-        bindViews()
-        bindData()
         
         title = "Pryaniki"
+        
+        let dataRx = viewModel.data.subscribe { [weak self] dataElements in
+            self?.data = dataElements.element
+        }
+        
+        let viewsRx = viewModel.views.subscribe { [weak self] views in
+            views.element?.forEach({
+                guard let newView = self?.viewsFactory?.createLabel(with: $0, models: self?.data ?? []) else { return }
+                self?.stackView.addArrangedSubview(newView)
+            })
+            
+            let calculatedScrollViewSize = CGSize(width: self?.view.frame.width ?? 0, height: ViewHeightCalculated.viewHeight(views: views.element ?? []))
+            if self?.scrollView.frame.height ?? 0 < calculatedScrollViewSize.height {
+                self?.scrollView.contentSize = calculatedScrollViewSize
+            }
+        }
+
     }
     
     // MARK: Setup UI elements
@@ -71,39 +87,6 @@ class DataViewController: UIViewController {
         scrollView.addSubview(stackView)
         stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: DataViewModelConstants.contentTopAnchor).isActive = true
-    }
-    
-    private func loadViews() {
-        guard let views = views, let data = data else { return }
-        
-        for view in views {
-            guard let newView = viewsFactory?.createLabel(with: view, models: data) else { return }
-            stackView.addArrangedSubview(newView)
-        }
-        
-        let calculatedScrollViewSize = CGSize(width: view.frame.width, height: ViewHeightCalculated.viewHeight(views: views))
-        if scrollView.frame.height < calculatedScrollViewSize.height {
-            scrollView.contentSize = calculatedScrollViewSize
-        }
-    }
-    
-    // MARK: Binding data
-    
-    private func bindViews() {
-        viewModel.views.bind { (views) in
-            DispatchQueue.main.async {
-                self.views = views
-            }
-        }
-    }
-    
-    private func bindData() {
-        viewModel.data.bind { data in
-            DispatchQueue.main.async {
-                self.data = data
-                self.loadViews()
-            }
-        }
     }
     
 }
