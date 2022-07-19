@@ -14,13 +14,12 @@ class DataViewModel {
     
     private var networkService = NetworkService()
     
-    var data: PublishSubject<[DataElement]> = PublishSubject()
-    var views: PublishSubject<[String]> = PublishSubject()
+    var searchResponse: PublishSubject<SearchResponse> = PublishSubject()
     
     func receiveData() {
         networkService.fetchData(from: UrlRequests.pryanikiJSONRequest) { [weak self] response in
-            self?.data.onNext(response?.data ?? [])
-            self?.views.onNext(response?.view ?? [])
+            guard let response = response else { return }
+            self?.searchResponse.onNext(response)
         }
     }
     

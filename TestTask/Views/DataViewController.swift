@@ -18,7 +18,6 @@ class DataViewController: UIViewController {
     
     private var viewsFactory: ViewsFactory?
     private var viewModel = DataViewModel()
-    private var data: [DataElement]?
     
     // MARK: UI Elements
     
@@ -57,17 +56,18 @@ class DataViewController: UIViewController {
         
         title = "Pryaniki"
         
-        let dataRx = viewModel.data.subscribe { [weak self] dataElements in
-            self?.data = dataElements.element
-        }
-        
-        let viewsRx = viewModel.views.subscribe { [weak self] views in
-            views.element?.forEach({
-                guard let newView = self?.viewsFactory?.createLabel(with: $0, models: self?.data ?? []) else { return }
+        let response = viewModel.searchResponse.subscribe { [weak self] response in
+            guard
+                let data = response.element?.data,
+                let views = response.element?.view
+            else { return }
+            
+            views.map({
+                guard let newView = self?.viewsFactory?.createLabel(with: $0, models: data) else { return }
                 self?.stackView.addArrangedSubview(newView)
             })
             
-            let calculatedScrollViewSize = CGSize(width: self?.view.frame.width ?? 0, height: ViewHeightCalculated.viewHeight(views: views.element ?? []))
+            let calculatedScrollViewSize = CGSize(width: self?.view.frame.width ?? 0, height: ViewHeightCalculated.viewHeight(views: views))
             if self?.scrollView.frame.height ?? 0 < calculatedScrollViewSize.height {
                 self?.scrollView.contentSize = calculatedScrollViewSize
             }
